@@ -1,0 +1,115 @@
+<section id="dashboard" class="section-pad bg-soft">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-[#465FFF] font-semibold text-sm tracking-wider uppercase flex items-center justify-center gap-2">
+        <i class="ri-dashboard-3-line"></i> Dashboard
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-[#111827]">See your shop at a glance</h2>
+      <p class="text-[#667085] mt-3 text-lg">Beautiful, intuitive dashboard for every device.</p>
+    </div>
+
+    <!-- Dashboard Gallery -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Desktop -->
+      <div class="glass-card p-6 border border-white/60 gallery-thumb" data-src="assets/images/dashboard/dashboard-desktop.png">
+        <div class="relative overflow-hidden rounded-xl bg-[#F1F4FE] aspect-[16/10] flex items-center justify-center">
+          <img src="assets/images/dashboard/dashboard-desktop.png" alt="Desktop Dashboard" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors flex items-center justify-center">
+            <span class="opacity-0 hover:opacity-100 transition-opacity text-sm font-medium text-[#111827] bg-white/90 px-4 py-2 rounded-full shadow-lg">
+              <i class="ri-search-2-line mr-2"></i> Click to view
+            </span>
+          </div>
+        </div>
+        <p class="text-sm text-center mt-3 text-[#667085] font-medium">
+          <i class="ri-computer-line mr-1.5 text-[#465FFF]"></i> Desktop Dashboard
+        </p>
+      </div>
+
+      <!-- Laptop -->
+      <div class="glass-card p-6 border border-white/60 gallery-thumb" data-src="assets/images/dashboard/dashboard-laptop.png">
+        <div class="relative overflow-hidden rounded-xl bg-[#F1F4FE] aspect-[16/10] flex items-center justify-center">
+          <img src="assets/images/dashboard/dashboard-laptop.png" alt="Laptop Dashboard" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors flex items-center justify-center">
+            <span class="opacity-0 hover:opacity-100 transition-opacity text-sm font-medium text-[#111827] bg-white/90 px-4 py-2 rounded-full shadow-lg">
+              <i class="ri-search-2-line mr-2"></i> Click to view
+            </span>
+          </div>
+        </div>
+        <p class="text-sm text-center mt-3 text-[#667085] font-medium">
+          <i class="ri-laptop-line mr-1.5 text-[#465FFF]"></i> Laptop Dashboard
+        </p>
+      </div>
+
+      <!-- Tablet -->
+      <div class="glass-card p-6 border border-white/60 gallery-thumb" data-src="assets/images/dashboard/dashboard-tablet.png">
+        <div class="relative overflow-hidden rounded-xl bg-[#F1F4FE] aspect-[4/3] flex items-center justify-center">
+          <img src="assets/images/dashboard/dashboard-tablet.png" alt="Tablet Dashboard" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors flex items-center justify-center">
+            <span class="opacity-0 hover:opacity-100 transition-opacity text-sm font-medium text-[#111827] bg-white/90 px-4 py-2 rounded-full shadow-lg">
+              <i class="ri-search-2-line mr-2"></i> Click to view
+            </span>
+          </div>
+        </div>
+        <p class="text-sm text-center mt-3 text-[#667085] font-medium">
+          <i class="ri-tablet-line mr-1.5 text-[#465FFF]"></i> Tablet Dashboard
+        </p>
+      </div>
+
+      <!-- Mobile -->
+      <div class="glass-card p-6 border border-white/60 gallery-thumb" data-src="assets/images/dashboard/dashboard-mobile.png">
+        <div class="relative overflow-hidden rounded-xl bg-[#F1F4FE] aspect-[9/16] max-h-[300px] flex items-center justify-center mx-auto">
+          <img src="assets/images/dashboard/dashboard-mobile.png" alt="Mobile Dashboard" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors flex items-center justify-center">
+            <span class="opacity-0 hover:opacity-100 transition-opacity text-sm font-medium text-[#111827] bg-white/90 px-4 py-2 rounded-full shadow-lg">
+              <i class="ri-search-2-line mr-2"></i> Click to view
+            </span>
+          </div>
+        </div>
+        <p class="text-sm text-center mt-3 text-[#667085] font-medium">
+          <i class="ri-smartphone-line mr-1.5 text-[#465FFF]"></i> Mobile Dashboard
+        </p>
+      </div>
+    </div>
+
+    <!-- View All Button -->
+    <div class="mt-10 text-center">
+      <button class="btn-primary ripple">
+        <i class="ri-image-2-line mr-2"></i> View All Screenshots
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Image Modal -->
+<div id="image-modal" class="fixed inset-0 z-[100] modal-overlay hidden flex items-center justify-center p-4">
+  <div class="relative max-w-5xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+    <div class="relative">
+      <img id="modal-image" src="" alt="Dashboard Screenshot" class="w-full h-auto max-h-[80vh] object-contain" />
+      
+      <!-- Controls -->
+      <button id="modal-close" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center text-[#111827] hover:text-[#465FFF] transition-colors">
+        <i class="ri-close-line text-xl"></i>
+      </button>
+      
+      <button id="modal-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center text-[#111827] hover:text-[#465FFF] transition-colors">
+        <i class="ri-arrow-left-s-line text-xl"></i>
+      </button>
+      
+      <button id="modal-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center text-[#111827] hover:text-[#465FFF] transition-colors">
+        <i class="ri-arrow-right-s-line text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Bottom Controls -->
+    <div class="flex items-center justify-center gap-4 p-4 bg-gray-50 border-t border-gray-100">
+      <button id="modal-zoom-in" class="btn-outline text-sm py-1.5 px-4">
+        <i class="ri-zoom-in-line mr-1"></i> Zoom In
+      </button>
+      <button id="modal-zoom-out" class="btn-outline text-sm py-1.5 px-4">
+        <i class="ri-zoom-out-line mr-1"></i> Zoom Out
+      </button>
+      <span class="text-xs text-[#667085]">Scroll to zoom · Arrow keys to navigate</span>
+    </div>
+  </div>
+</div>

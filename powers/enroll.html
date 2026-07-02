@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Complete Your Subscription · ShopFlow</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8fafc;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+    /* ===== FIXED HEADER ===== */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #E5E7EB;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+    }
+
+    /* ===== GLASS CARD ===== */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.06);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      background: linear-gradient(145deg, #465FFF, #7C8CFF);
+      color: white;
+      padding: 0.85rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px -8px rgba(70, 95, 255, 0.35);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(70, 95, 255, 0.45); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #465FFF;
+      color: #465FFF;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-outline:hover { background: #465FFF; color: white; }
+
+    /* ===== FORM INPUTS ===== */
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 14px;
+      border: 1.5px solid #E5E7EB;
+      background: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      outline: none;
+      color: #111827;
+    }
+
+    .form-input:focus {
+      border-color: #465FFF;
+      box-shadow: 0 0 0 4px rgba(70, 95, 255, 0.1);
+    }
+
+    .form-input::placeholder { color: #9CA3AF; }
+    .form-input.error { border-color: #F04438; box-shadow: 0 0 0 4px rgba(240, 68, 56, 0.1); }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-label .required { color: #F04438; }
+
+    /* ===== STEPPER DOTS ===== */
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      border: 2px solid #E5E7EB;
+      background: white;
+    }
+
+    .step-dot.completed {
+      background: #12B76A;
+      border-color: #12B76A;
+      box-shadow: 0 0 12px rgba(18, 183, 106, 0.3);
+    }
+
+    .step-dot.active {
+      background: #465FFF;
+      border-color: #465FFF;
+      box-shadow: 0 0 20px rgba(70, 95, 255, 0.35);
+      transform: scale(1.2);
+    }
+
+    .step-dot.upcoming {
+      background: white;
+      border-color: #E5E7EB;
+    }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: #E5E7EB;
+      transition: background 0.4s ease;
+      margin: 0 4px;
+      min-width: 20px;
+    }
+    .step-line.completed { background: #12B76A; }
+
+    /* ===== HARDWARE CARDS ===== */
+    .hardware-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid #E5E7EB;
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      background: white;
+    }
+
+    .hardware-card:hover { border-color: #465FFF; transform: translateY(-2px); }
+    .hardware-card.selected { border-color: #465FFF; background: #EAF1FF; }
+
+    /* ===== RIPPLE ===== */
+    .ripple { position: relative; overflow: hidden; }
+
+    /* ===== STICKY ===== */
+    .sticky-sidebar { position: sticky; top: 80px; }
+
+    /* ===== FORM SECTIONS ===== */
+    .form-section {
+      display: none;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1023px) {
+      .sticky-sidebar { position: relative; top: 0; }
+      .fixed-header { height: 56px; }
+      body { padding-top: 56px; }
+    }
+
+    @media (min-width: 1024px) {
+      body { padding-top: 64px; }
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
+    .toast {
+      padding: 0.75rem 1.5rem;
+      border-radius: 16px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      animation: toastIn 0.4s ease forwards;
+      background: white;
+      border: 1px solid #E5E7EB;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .toast-out {
+      animation: toastOut 0.3s ease forwards;
+    }
+
+    @keyframes toastOut {
+      to { opacity: 0; transform: translateY(20px) scale(0.95); }
+    }
+
+    /* ===== NAV BUTTONS ===== */
+    .nav-btn-container {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-btn-container .btn-outline,
+    .nav-btn-container .btn-primary {
+      flex: 1;
+    }
+
+    @media (max-width: 480px) {
+      .nav-btn-container {
+        flex-direction: column;
+      }
+      .nav-btn-container .btn-outline,
+      .nav-btn-container .btn-primary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== FIXED HEADER ===== -->
+<header class="fixed-header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="flex items-center justify-between">
+      <button onclick="history.back()" class="flex items-center gap-2 text-sm font-medium text-[#667085] hover:text-[#111827] transition">
+        <i class="ri-arrow-left-s-line text-3xl"></i>
+        <span class="hidden sm:inline">Back</span>
+      </button>
+      <span class="text-sm font-normal text-[#111827]">Complete Subscription</span>
+      <div class="flex items-center gap-1.5 text-xs text-[#667085]">
+        <i class="ri-lock-2-line text-xl text-[#12B76A]"></i>
+        <span class="hidden sm:inline">Secure</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+  <div class="grid lg:grid-cols-12 gap-8">
+
+    <!-- ===== LEFT COLUMN ===== -->
+    <div class="lg:col-span-7 xl:col-span-8 space-y-6">
+
+      <!-- ===== STEPPER AT TOP ===== -->
+      <div class="glass-card p-5">
+        <div class="flex items-center gap-2" id="stepper">
+          <div class="step-dot active" data-step="1"></div>
+          <div class="step-line" data-line="1"></div>
+          <div class="step-dot upcoming" data-step="2"></div>
+          <div class="step-line" data-line="2"></div>
+          <div class="step-dot upcoming" data-step="3"></div>
+        </div>
+
+        <div style="display: none;" class="flex items-center justify-between mt-3 text-xs text-[#667085]">
+          <span id="stepLabel">Step 1 of 3 · Shop Details</span>
+          <span id="stepProgress">33% Complete</span>
+        </div>
+        
+      </div>
+
+      <!-- ===== FORM ===== -->
+      <form id="enrollForm" class="space-y-6">
+
+        <!-- SECTION 1: Shop Details -->
+        <div class="glass-card p-5 md:p-6 form-section active" data-section="1">
+          <h3 class="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <i class="ri-store-3-line text-[#465FFF]"></i> Shop Details
+          </h3>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div>
+              <label class="form-label">Shop Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter shop name" required />
+            </div>
+            <div>
+              <label class="form-label">Business Type <span class="required">*</span></label>
+              <select class="form-input">
+                <option value="">Select type</option>
+                <option>Grocery</option>
+                <option>Pharmacy</option>
+                <option>Garments</option>
+                <option>Hardware</option>
+                <option>Electronics</option>
+                <option>Bakery</option>
+                <option>Mobile Shop</option>
+                <option>Supermarket</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">GST Number <span class="text-[#667085] text-xs">(Optional)</span></label>
+              <input type="text" class="form-input" placeholder="Enter GST number" />
+            </div>
+            <div>
+              <label class="form-label">Business Category <span class="required">*</span></label>
+              <select class="form-input">
+                <option value="">Select category</option>
+                <option>Retail</option>
+                <option>Wholesale</option>
+                <option>Both</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="form-label">Shop Address <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter full address" required />
+            </div>
+            <div>
+              <label class="form-label">State <span class="required">*</span></label>
+              <select class="form-input">
+  <option value="">Select State</option>
+
+  <!-- States -->
+  <option>Andhra Pradesh</option>
+  <option>Arunachal Pradesh</option>
+  <option>Assam</option>
+  <option>Bihar</option>
+  <option>Chhattisgarh</option>
+  <option>Goa</option>
+  <option>Gujarat</option>
+  <option>Haryana</option>
+  <option>Himachal Pradesh</option>
+  <option>Jharkhand</option>
+  <option>Karnataka</option>
+  <option>Kerala</option>
+  <option>Madhya Pradesh</option>
+  <option>Maharashtra</option>
+  <option>Manipur</option>
+  <option>Meghalaya</option>
+  <option>Mizoram</option>
+  <option>Nagaland</option>
+  <option>Odisha</option>
+  <option>Punjab</option>
+  <option>Rajasthan</option>
+  <option>Sikkim</option>
+  <option>Tamil Nadu</option>
+  <option>Telangana</option>
+  <option>Tripura</option>
+  <option>Uttar Pradesh</option>
+  <option>Uttarakhand</option>
+  <option>West Bengal</option>
+
+  <!-- Union Territories -->
+  <option>Andaman and Nicobar Islands</option>
+  <option>Chandigarh</option>
+  <option>Dadra and Nagar Haveli and Daman and Diu</option>
+  <option>Delhi (NCT)</option>
+  <option>Jammu and Kashmir</option>
+  <option>Ladakh</option>
+  <option>Lakshadweep</option>
+  <option>Puducherry</option>
+</select>
+            </div>
+            <div>
+              <label class="form-label">District <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter district" required />
+            </div>
+            <div>
+              <label class="form-label">PIN Code <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter PIN code" required maxlength="6" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: Owner Details -->
+        <div class="glass-card p-5 md:p-6 form-section" data-section="2">
+          <h3 class="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <i class="ri-user-3-line text-[#465FFF]"></i> Owner Details
+          </h3>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div>
+              <label class="form-label">Owner Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter full name" required />
+            </div>
+            <div>
+              <label class="form-label">Phone Number <span class="required">*</span></label>
+              <input type="tel" class="form-input" placeholder="Enter phone number" required />
+            </div>
+            <div>
+              <label class="form-label">Email Address <span class="required">*</span></label>
+              <input type="email" class="form-input" placeholder="Enter email address" required />
+            </div>
+            <div>
+              <label class="form-label">Alternate Phone <span class="text-[#667085] text-xs">(Optional)</span></label>
+              <input type="tel" class="form-input" placeholder="Enter alternate phone" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: Login Details -->
+        <div class="glass-card p-5 md:p-6 form-section" data-section="3">
+          <h3 class="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <i class="ri-key-2-line text-[#465FFF]"></i> Login Details
+          </h3>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div>
+              <label class="form-label">Username <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Choose a username" required />
+            </div>
+            <div>
+              <label class="form-label">Password <span class="required">*</span></label>
+              <input type="password" class="form-input" placeholder="Create a password" required minlength="6" />
+            </div>
+            <div>
+              <label class="form-label">Confirm Password <span class="required">*</span></label>
+              <input type="password" class="form-input" placeholder="Confirm your password" required />
+            </div>
+          </div>
+
+          <!-- Hardware Selection -->
+          <h4 class="font-semibold text-[#111827] flex items-center gap-2 mt-6">
+            <i class="ri-hard-drive-2-line text-[#465FFF]"></i> Optional Hardware
+          </h4>
+          <p class="text-sm text-[#667085] mt-1">Select any hardware you plan to use with ShopFlow.</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+            <div class="hardware-card" onclick="toggleHardware(this)">
+              <i class="ri-barcode-box-line text-2xl text-[#465FFF]"></i>
+              <p class="text-xs font-medium mt-1">Barcode Scanner</p>
+            </div>
+            <div class="hardware-card" onclick="toggleHardware(this)">
+              <i class="ri-printer-cloud-line text-2xl text-[#465FFF]"></i>
+              <p class="text-xs font-medium mt-1">Thermal Printer</p>
+            </div>
+            <div class="hardware-card" onclick="toggleHardware(this)">
+              <i class="ri-smartphone-line text-2xl text-[#465FFF]"></i>
+              <p class="text-xs font-medium mt-1">Android App</p>
+            </div>
+            <div class="hardware-card" onclick="toggleHardware(this)">
+              <i class="ri-whatsapp-line text-2xl text-[#465FFF]"></i>
+              <p class="text-xs font-medium mt-1">WhatsApp Billing</p>
+            </div>
+            <div class="hardware-card" onclick="toggleHardware(this)">
+              <i class="ri-qr-code-line text-2xl text-[#465FFF]"></i>
+              <p class="text-xs font-medium mt-1">QR Ordering</p>
+            </div>
+          </div>
+
+          <!-- Coupon -->
+          <h4 style="display: none;" class="font-semibold text-[#111827] flex items-center gap-2 mt-6">
+            <i class="ri-discount-2-line text-[#465FFF]"></i> Coupon Code
+          </h4>
+
+          <div style="display: none;" class="flex gap-3 mt-4">
+            <input type="text" class="form-input flex-1" placeholder="Enter coupon code" id="couponInput" />
+            <button type="button" class="btn-outline text-sm px-6 py-2.5 whitespace-nowrap" onclick="applyCoupon()">Apply</button>
+          </div>
+          <p id="couponMessage" class="text-xs text-[#667085] mt-2"></p>
+
+          <!-- Agreement -->
+          <div class="flex items-start gap-3 mt-6 pt-6 border-t border-gray-200/60">
+            <input type="checkbox" id="agreeTerms" class="mt-1 w-4 h-4 rounded border-gray-300 text-[#465FFF] focus:ring-[#465FFF]" required />
+            <label for="agreeTerms" class="text-sm text-[#667085]">
+              I agree to the <a href="#" class="text-[#465FFF] font-medium hover:underline">Terms &amp; Conditions</a>,
+              <a href="#" class="text-[#465FFF] font-medium hover:underline">Privacy Policy</a>, and
+              <a href="#" class="text-[#465FFF] font-medium hover:underline">Refund Policy</a>.
+              <span class="required">*</span>
+            </label>
+          </div>
+
+          <!-- Submit -->
+   <button type="submit" class="btn-primary w-full flex items-center justify-center text-base font-normal py-2.5 mt-6 ripple">
+  
+  Complete Payment
+</button>
+
+        </div>
+
+      </form>
+
+      <!-- ===== NAVIGATION BUTTONS (Below Form) ===== -->
+      <div class="glass-card p-4">
+        <div class="flex gap-3">
+          <button id="prevStep" class="btn-outline text-sm px-6 py-2.5 flex-1" onclick="changeStep(-1)">
+            <i class="ri-arrow-left-s-line"></i> Previous
+          </button>
+          <button id="nextStep" class="btn-primary text-sm py-2.5 px-6 flex-1" onclick="changeStep(1)">
+            Next Step <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== SUPPORT CARD ===== -->
+      <div class="glass-card p-5 md:p-6 text-center">
+        <h4 class="font-semibold text-[#111827] flex items-center justify-center gap-2">
+          <i class="ri-customer-service-2-line text-[#465FFF]"></i> Need Help?
+        </h4>
+        <div class="flex flex-wrap justify-center gap-4 mt-3 text-sm">
+          <a href="#" class="flex items-center gap-1.5 text-[#667085] hover:text-[#465FFF] transition">
+            <i class="ri-whatsapp-line text-[#12B76A]"></i> WhatsApp
+          </a>
+          <a href="#" class="flex items-center gap-1.5 text-[#667085] hover:text-[#465FFF] transition">
+            <i class="ri-phone-line text-[#465FFF]"></i> Phone
+          </a>
+          <a href="#" class="flex items-center gap-1.5 text-[#667085] hover:text-[#465FFF] transition">
+            <i class="ri-mail-line text-[#465FFF]"></i> Email
+          </a>
+        </div>
+        <p class="text-xs text-[#667085] mt-2">Mon–Sat, 10:00 AM – 7:00 PM</p>
+      </div>
+
+      <!-- ===== FAQ ===== -->
+      <div class="glass-card p-5 md:p-6">
+        <h4 class="font-semibold text-[#111827] flex items-center gap-2">
+          <i class="ri-questionnaire-line text-[#465FFF]"></i> Frequently Asked Questions
+        </h4>
+        <div class="space-y-2 mt-3">
+          <div class="border-b border-gray-100 pb-2">
+            <button class="faq-btn w-full text-left text-sm font-medium text-[#111827] flex items-center justify-between hover:text-[#465FFF] transition" onclick="toggleFaq(this)">
+              How long does activation take?
+              <i class="ri-add-fill text-lg"></i>
+            </button>
+            <div class="faq-answer text-sm text-[#667085] mt-1 hidden">Activation is instant after payment confirmation.</div>
+          </div>
+          <div class="border-b border-gray-100 pb-2">
+            <button class="faq-btn w-full text-left text-sm font-medium text-[#111827] flex items-center justify-between hover:text-[#465FFF] transition" onclick="toggleFaq(this)">
+              Can I cancel anytime?
+              <i class="ri-add-fill text-lg"></i>
+            </button>
+            <div class="faq-answer text-sm text-[#667085] mt-1 hidden">Yes, you can cancel your subscription anytime.</div>
+          </div>
+          <div class="border-b border-gray-100 pb-2">
+            <button class="faq-btn w-full text-left text-sm font-medium text-[#111827] flex items-center justify-between hover:text-[#465FFF] transition" onclick="toggleFaq(this)">
+              Will I receive updates?
+              <i class="ri-add-fill text-lg"></i>
+            </button>
+            <div class="faq-answer text-sm text-[#667085] mt-1 hidden">Yes, free updates are included in your plan.</div>
+          </div>
+          <div>
+            <button class="faq-btn w-full text-left text-sm font-medium text-[#111827] flex items-center justify-between hover:text-[#465FFF] transition" onclick="toggleFaq(this)">
+              Does it support barcode scanners?
+              <i class="ri-add-fill text-lg"></i>
+            </button>
+            <div class="faq-answer text-sm text-[#667085] mt-1 hidden">Yes, all standard barcode scanners are supported.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== RIGHT COLUMN - PLAN SUMMARY ===== -->
+    <div class="lg:col-span-5 xl:col-span-4">
+      <div class="sticky-sidebar space-y-4">
+
+        <!-- Plan Summary Card -->
+        <div class="glass-card p-6 border border-white/60">
+          <div class="text-center pb-4 border-b border-gray-200/60">
+            <span class="text-xs font-semibold text-[#465FFF] bg-[#EAF1FF] px-3 py-1 rounded-full">Premium Plan</span>
+            <div class="mt-2 flex items-end justify-center gap-1">
+              <span class="text-4xl font-bold text-[#111827]">₹499</span>
+              <span class="text-sm text-[#667085] mb-1">/ month</span>
+            </div>
+          </div>
+
+          <div class="space-y-2 py-4">
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Unlimited Billing
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Unlimited Products
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Barcode Scanner Support
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Thermal Printer Support
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Cloud Backup
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Dashboard Analytics
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Reports &amp; Insights
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Free Updates
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Multi Device Login
+            </div>
+            <div class="flex items-center gap-2 text-sm text-[#111827]">
+              <i class="ri-check-line text-[#12B76A] text-lg"></i> Priority Support
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200/60 pt-4 space-y-2">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-[#667085]">Premium Plan</span>
+              <span class="font-medium text-[#111827]">₹499</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-[#667085]">Tax</span>
+              <span class="font-medium text-[#111827]">₹0</span>
+            </div>
+            <div class="flex items-center justify-between text-base font-bold pt-2 border-t border-gray-200/60">
+              <span class="text-[#111827]">Total</span>
+              <span class="text-[#465FFF]">₹499</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 mt-4">
+            <div class="text-center p-2 rounded-xl bg-[#EAF1FF]">
+              <i class="ri-lock-2-line text-[#465FFF] text-sm"></i>
+              <p class="text-[10px] text-[#667085]">256-bit Secure</p>
+            </div>
+            <div class="text-center p-2 rounded-xl bg-emerald-50">
+              <i class="ri-flashlight-line text-emerald-500 text-sm"></i>
+              <p class="text-[10px] text-[#667085]">Instant Activation</p>
+            </div>
+            <div class="text-center p-2 rounded-xl bg-amber-50">
+              <i class="ri-shield-check-line text-amber-500 text-sm"></i>
+              <p class="text-[10px] text-[#667085]">No Hidden Charges</p>
+            </div>
+            <div class="text-center p-2 rounded-xl bg-purple-50">
+              <i class="ri-customer-service-2-line text-purple-500 text-sm"></i>
+              <p class="text-[10px] text-[#667085]">Priority Support</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="glass-card p-4 text-center">
+          <div class="flex flex-wrap justify-center gap-4 text-xs text-[#667085]">
+            <span class="flex items-center gap-1"><i class="ri-shield-check-line text-[#12B76A]"></i> Secure Payment</span>
+            <span class="flex items-center gap-1"><i class="ri-time-line text-[#465FFF]"></i> Instant Access</span>
+            <span class="flex items-center gap-1"><i class="ri-refund-2-line text-[#12B76A]"></i> 30-Day Refund</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+    // ============================================
+// ENROLLMENT PAGE SCRIPT
+// ============================================
+
+// ===== STEPPER =====
+let currentStep = 1;
+const totalSteps = 3;
+
+function updateStepper(step) {
+  const dots = document.querySelectorAll('.step-dot');
+  const lines = document.querySelectorAll('.step-line');
+  const label = document.getElementById('stepLabel');
+  const progress = document.getElementById('stepProgress');
+  const prevBtn = document.getElementById('prevStep');
+  const nextBtn = document.getElementById('nextStep');
+
+  const stepNames = ['Shop Details', 'Owner Details', 'Login & Complete'];
+
+  dots.forEach((dot, index) => {
+    const num = index + 1;
+    dot.className = 'step-dot';
+    if (num < step) dot.classList.add('completed');
+    else if (num === step) dot.classList.add('active');
+    else dot.classList.add('upcoming');
+  });
+
+  lines.forEach((line, index) => {
+    line.className = 'step-line';
+    if (index + 1 < step) line.classList.add('completed');
+  });
+
+  label.textContent = `Step ${step} of ${totalSteps} · ${stepNames[step - 1]}`;
+  progress.textContent = `${Math.round((step / totalSteps) * 100)}% Complete`;
+
+  // ===== HIDE NAVIGATION BUTTONS ON LAST STEP =====
+  if (step === totalSteps) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
+    
+    if (step === 1) {
+      prevBtn.style.display = 'none';
+    } else {
+      prevBtn.style.display = 'flex';
+    }
+
+    if (step === totalSteps) {
+      nextBtn.innerHTML = 'Complete Form <i class="ri-check-line"></i>';
+    } else {
+      nextBtn.innerHTML = 'Next Step <i class="ri-arrow-right-s-line"></i>';
+    }
+  }
+
+  // Show/hide form sections
+  document.querySelectorAll('.form-section').forEach((section, index) => {
+    section.classList.remove('active');
+    if (index + 1 === step) {
+      section.classList.add('active');
+    }
+  });
+}
+
+function changeStep(direction) {
+  const newStep = currentStep + direction;
+  if (newStep < 1 || newStep > totalSteps) return;
+
+  // Validate current section before moving forward
+  if (direction === 1) {
+    const currentSection = document.querySelector(`.form-section[data-section="${currentStep}"]`);
+    const required = currentSection?.querySelectorAll('[required]');
+    let valid = true;
+
+    required?.forEach(field => {
+      if (!field.value.trim()) {
+        field.classList.add('error');
+        valid = false;
+      } else {
+        field.classList.remove('error');
+      }
+    });
+
+    if (!valid) {
+      showToast('Please fill in all required fields.', 'error');
+      return;
+    }
+  }
+
+  currentStep = newStep;
+  updateStepper(currentStep);
+}
+
+// ===== FORM SUBMIT =====
+document.getElementById('enrollForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Validate all required fields
+  const required = this.querySelectorAll('[required]');
+  let valid = true;
+
+  required.forEach(field => {
+    if (!field.value.trim()) {
+      field.classList.add('error');
+      valid = false;
+    } else {
+      field.classList.remove('error');
+    }
+  });
+
+  // Validate password match
+  const passwords = document.querySelectorAll('input[type="password"]');
+  if (passwords.length >= 2 && passwords[0].value !== passwords[1].value) {
+    passwords[1].classList.add('error');
+    valid = false;
+  }
+
+  // Validate terms
+  const terms = document.getElementById('agreeTerms');
+  if (!terms.checked) {
+    terms.classList.add('error');
+    valid = false;
+  } else {
+    terms.classList.remove('error');
+  }
+
+  if (!valid) {
+    showToast('Please fill in all required fields.', 'error');
+    return;
+  }
+
+  showToast('🎉 Subscription successful! Redirecting to dashboard...', 'success');
+
+  setTimeout(() => {
+    window.location.href = '#';
+  }, 2000);
+});
+
+// ===== HARDWARE TOGGLE =====
+function toggleHardware(el) {
+  el.classList.toggle('selected');
+}
+
+// ===== COUPON =====
+function applyCoupon() {
+  const input = document.getElementById('couponInput');
+  const msg = document.getElementById('couponMessage');
+
+  if (input.value.trim() === '') {
+    msg.textContent = 'Please enter a coupon code.';
+    msg.className = 'text-xs text-[#F04438] mt-2';
+    return;
+  }
+
+  if (input.value.trim().toUpperCase() === 'SAVE10') {
+    msg.textContent = '✅ Coupon applied! 10% discount on your first month.';
+    msg.className = 'text-xs text-[#12B76A] mt-2';
+  } else {
+    msg.textContent = '❌ Invalid coupon code. Please try again.';
+    msg.className = 'text-xs text-[#F04438] mt-2';
+  }
+}
+
+// ===== FAQ TOGGLE =====
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('i');
+
+  if (answer.classList.contains('hidden')) {
+    answer.classList.remove('hidden');
+    icon.className = 'ri-subtract-fill text-lg';
+  } else {
+    answer.classList.add('hidden');
+    icon.className = 'ri-add-fill text-lg';
+  }
+}
+
+// ===== TOAST =====
+function showToast(message, type = 'success') {
+  const existing = document.querySelector('.toast-container');
+  if (existing) existing.remove();
+
+  const container = document.createElement('div');
+  container.className = 'toast-container';
+
+  const toast = document.createElement('div');
+  const colors = {
+    success: 'border-emerald-200 text-emerald-800',
+    error: 'border-rose-200 text-rose-800'
+  };
+
+  toast.className = `toast ${colors[type] || colors.success}`;
+  toast.textContent = message;
+
+  container.appendChild(toast);
+  document.body.appendChild(container);
+
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    setTimeout(() => container.remove(), 300);
+  }, 3000);
+}
+
+// ===== RIPPLE EFFECT =====
+document.querySelectorAll('.ripple').forEach(el => {
+  el.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+
+    const ripple = document.createElement('span');
+    ripple.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      left: ${x}px;
+      top: ${y}px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: scale(0);
+      animation: rippleAnim 0.6s ease-out forwards;
+    `;
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  });
+});
+
+// ===== INJECT RIPPLE KEYFRAMES =====
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+  @keyframes rippleAnim {
+    to { transform: scale(4); opacity: 0; }
+  }
+`;
+document.head.appendChild(styleEl);
+
+// ===== INIT =====
+updateStepper(1);
+
+console.log('✅ Enrollment page initialized');
+</script>
+
+</body>
+</html>
