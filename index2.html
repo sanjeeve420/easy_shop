@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+  <title>ShopFlow · Cloud Shop Management</title>
+  <meta name="description" content="Premium cloud-based shop management system for retail businesses. Billing, inventory, reports, and more." />
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet" />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .shadow-2xl {
+    --tw-shadow: 0 25px 50px -12px rgb(95 147 255 / 25%) !important;
+
+}
+
+.text-base {
+    font-size: 13px !important;
+    line-height: inherit !important;
+}
+
+
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen" class="fixed inset-0 z-[999] flex items-center justify-center bg-white/95 backdrop-blur-sm transition-opacity duration-700">
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-14 h-14 border-4 border-[#465FFF] border-t-transparent rounded-full animate-spin"></div>
+    <span class="text-sm font-medium text-[#465FFF] tracking-wider">loading experience</span>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-[#465FFF] z-50 transition-all duration-150" style="width:0%"></div>
+
+<!-- APP -->
+<div id="app" class="relative">
+  
+  <!-- HEADER -->
+  <div id="header-container"></div>
+  
+  <!-- MAIN SECTIONS -->
+  <main>
+    <div id="hero-container"></div>
+    <div id="trusted-container"></div>
+    <div id="features-container"></div>
+    <div id="how-it-works-container"></div>
+    <div id="hardware-container"></div>
+    <div id="dashboard-preview-container"></div>
+    <div id="pricing-container"></div>
+    <div id="testimonials-container"></div>
+    <div id="faq-container"></div>
+    <div id="contact-container"></div>
+  </main>
+  
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
+  
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full glass shadow-lg flex items-center justify-center text-[#465FFF] hover:bg-[#465FFF] hover:text-white transition-all duration-300 opacity-0 translate-y-4 pointer-events-none border border-white/40">
+    <i class="ri-arrow-up-line text-xl"></i>
+  </button>
+  
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none"></div>
+</div>
+
+<!-- JavaScript -->
+<script src="assets/js/include.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>
